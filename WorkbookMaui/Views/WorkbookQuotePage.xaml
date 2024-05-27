@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:WorkbookMaui.ViewModels"
+             xmlns:customControl="clr-namespace:WorkbookMaui.CustomControls"
+             xmlns:models="clr-namespace:WorkbookMaui.Models"
+             x:DataType="viewModel:WorkbookQuoteViewModel"
+             x:Class="WorkbookMaui.Views.WorkbookQuotePage"
+             x:Name="QuotePage">
+	<ScrollView>
+		<StackLayout>
+			<Frame>
+				<StackLayout>
+					<Label Text="Quote Settings"
+					       HorizontalOptions="End"
+					       VerticalOptions="Start"
+					       VerticalTextAlignment="Start" />
+					<customControl:MyPicker LabelText="Quote Status" PickerItems="{Binding QuoteStatusTypes}"
+					                        SelectedItem="{Binding QuoteStatus, Mode=TwoWay}" />
+				</StackLayout>
+			</Frame>
+			<Frame>
+				<StackLayout>
+					<Label Text="Quote Header"
+					       FontAttributes="Bold"
+					       HorizontalOptions="End"
+					       VerticalOptions="Start"
+					       VerticalTextAlignment="Start"/>
+					<Grid ColumnDefinitions="*,*,*">
+						<StackLayout Grid.Column="0">
+							<customControl:MyTextInput LabelText="Well Name" EntryText="" />
+							<customControl:MyTextInput LabelText="Surface Location" EntryText="" />
+							<customControl:MyTextInput LabelText="Bottom Hole Location" EntryText="" />
+							<customControl:MyTextInput LabelText="Well License" EntryText="" />
+							<customControl:MyTextInput LabelText="Field" EntryText="" />
+							<customControl:MyTextInput LabelText="Formation" EntryText="" />
+							<customControl:MyDatePicker LabelText="Estimated Install Date" SelectedDate="{Binding EstimatedInstallDate, Mode=TwoWay}" />
+							<customControl:MyDatePicker LabelText="Estimated Frac Date" SelectedDate="{Binding EstimatedFracDate, Mode=TwoWay}" />
+							<customControl:MyTextInput LabelText="Rig" EntryText="" />
+							<customControl:MyTextInput LabelText="Rig Contact" EntryText="" />
+							<customControl:MyTextInput LabelText="AFE" EntryText="" />
+
+						</StackLayout>
+						<StackLayout Grid.Column="1">
+							<customControl:MyPicker LabelText="Company Name" PickerItems="{Binding QuoteStatusTypes}"
+							                        SelectedItem="{Binding QuoteStatus, Mode=TwoWay}" />
+							<customControl:MyTextInput LabelText="Billing Address" EntryText="" />
+							<customControl:MyTextInput LabelText="Billing City" EntryText="" />
+							<customControl:MyTextInput LabelText="Billing State/Province" EntryText="" />
+							<customControl:MyTextInput LabelText="Billing Zip/Postal Code" EntryText="" />
+							<customControl:MyPicker LabelText="Contact" PickerItems="{Binding QuoteStatusTypes}"
+							                        SelectedItem="{Binding QuoteStatus, Mode=TwoWay}" />
+							<customControl:MyTextInput LabelText="Contact Phone" EntryText="" />
+							<customControl:MyTextInput LabelText="Contact Email" EntryText="" />
+							<customControl:MyTextInput LabelText="Total Measured Depth (m)" EntryText="" />
+							<customControl:MyTextInput LabelText="Work Order #" EntryText="" />
+							<customControl:MyTextInput LabelText="Estimated Frac Stages" EntryText="" />
+						</StackLayout>
+						<StackLayout Grid.Column="2">
+							<customControl:MyTextInput LabelText="Quote #" EntryText="" />
+							<customControl:MyDatePicker LabelText="Quote Date" SelectedDate="{Binding QuoteDate, Mode=TwoWay}" />
+							<customControl:MyTextInput LabelText="Prepared By" EntryText="" />
+							<customControl:MyTextInput LabelText="Sales Representative" EntryText="" />
+							<customControl:MyTextInput LabelText="Sales Phone" EntryText="" />
+							<customControl:MyTextInput LabelText="Sales Email" EntryText="" />
+							<customControl:MyPicker LabelText="Service Center" PickerItems="{Binding QuoteStatusTypes}"
+							                        SelectedItem="{Binding QuoteStatus, Mode=TwoWay}" />
+							<customControl:MyTextInput LabelText="Anticipated ISIP (kPa)" EntryText="" />
+							<customControl:MyTextInput LabelText="Total Vertical Depth (m)" EntryText="" />
+							<customControl:MyTextInput LabelText="SO #" EntryText="" />
+						</StackLayout>
+					</Grid>
+					<customControl:MyTextInput LabelText="Job Type" EntryText="" />
+				</StackLayout>
+			</Frame>
+			<Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto,Auto,Auto">
+				<Button Grid.Column="1" Margin="2" Padding="2" Text="Save Quote Template"/>
+				<Button Grid.Column="2" Margin="2" Padding="2" Text="Load Quote Template"/>
+				<Button Grid.Column="3" Margin="2" Padding="2" Text="Save Thread Price Template"/>
+				<Button Grid.Column="4" Margin="2" Padding="2" Text="Load Thread Price Template"/>
+				<Button Grid.Column="5" Margin="2" Padding="2" Text="Save Ball Price Template"/>
+				<Button Grid.Column="6" Margin="2" Padding="2" Text="Load Ball Price Template"/>
+			</Grid>
+			<Frame>
+				<StackLayout>
+					<Grid RowDefinitions="Auto,*">
+						<Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto, *">
+							<Button Grid.Column="1" Margin="2" Padding="2" Text="Add" Command="{Binding AddTubularCommand}"/>
+							<Button Grid.Column="2" Margin="2" Padding="2" Text="Edit"/>
+							<Button Grid.Column="3" Margin="2" Padding="2" Text="Move Up"/>
+							<Button Grid.Column="4" Margin="2" Padding="2" Text="Move Down"/>
+							<Button Grid.Column="5" Margin="2" Padding="2" Text="Clear"/>
+							<Label Grid.Column="6" Text="Tubular and Open Hole Information"
+							       FontAttributes="Bold"
+							       HorizontalOptions="End" 
+							       VerticalOptions="Start"
+							       VerticalTextAlignment="Start"/>
+					
+						</Grid>
+					</Grid>
+					<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" RowDefinitions="Auto,*">
+						<Label Grid.Row="0" Grid.Column="0" Text="OD" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="1" Text="ID" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="2" Text="Weight" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="3" Text="Grade" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="4" Text="Connection" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="5" Text="Top Depth" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="6" Text="Bottom Depth" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="7" Text="Source List" HorizontalTextAlignment="Center"/>
+						<CollectionView Grid.Row="1" Grid.ColumnSpan="9" 
+						                x:Name="TubularCollectionView"
+						                ItemsSource="{Binding TubularInfo}"
+						                SelectedItem="{Binding SelectedTubular, Mode=TwoWay}">
+							<CollectionView.ItemTemplate>
+								<DataTemplate x:DataType="models:Tubular">
+									<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" Padding="5">
+										<Entry Grid.Column="0" Text="{Binding OuterDiameter, Mode=TwoWay, Converter={StaticResource DoubleToTextConverter}}" Placeholder="SizeOD" HorizontalTextAlignment="Center" />
+										<Entry Grid.Column="1" Text="{Binding InnerDiameter, Mode=TwoWay, Converter={StaticResource DoubleToTextConverter}}" Placeholder="SizeID" HorizontalTextAlignment="Center"/>
+										<Entry Grid.Column="2" Text="{Binding Weight, Mode=TwoWay, Converter={StaticResource DoubleToTextConverter}}" Placeholder="Weight" HorizontalTextAlignment="Center"/>
+										<Entry Grid.Column="3" Text="{Binding Grade, Mode=TwoWay}" Placeholder="Grade" HorizontalTextAlignment="Center"/>
+										<Entry Grid.Column="4" Text="{Binding Connection, Mode=TwoWay}" Placeholder="Connection" HorizontalTextAlignment="Center"/>
+										<Entry Grid.Column="5" Text="{Binding TopDepth, Mode=TwoWay, Converter={StaticResource DoubleToTextConverter}}" Placeholder="TopDepth" HorizontalTextAlignment="Center"/>
+										<Entry Grid.Column="6" Text="{Binding BottomDepth, Mode=TwoWay, Converter={StaticResource DoubleToTextConverter}}" Placeholder="BottomDepth" HorizontalTextAlignment="Center"/>
+										<Picker Grid.Column="7" SelectedItem="{Binding SourceList, Mode=TwoWay}" ItemsSource="{DynamicResource SourceListOptionsTubular}" HorizontalTextAlignment="Center" />
+										<Button Grid.Column="8" Text="Delete" Clicked="DeleteButtonClicked" CommandParameter="{Binding .}" />
+									</Grid>
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+					</Grid>
+				</StackLayout>
+			</Frame>
+			<Frame>
+				<StackLayout>
+					<Grid RowDefinitions="Auto,*">
+						<Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto, *">
+							<Button Grid.Column="1" Margin="2" Padding="2" Text="Add" Command="{Binding AddPurchaseItemsCommand}"/>
+							<Button Grid.Column="2" Margin="2" Padding="2" Text="Edit"/>
+							<Button Grid.Column="3" Margin="2" Padding="2" Text="Move Up"/>
+							<Button Grid.Column="4" Margin="2" Padding="2" Text="Move Down"/>
+							<Button Grid.Column="5" Margin="2" Padding="2" Text="Clear"/>
+							<Label Grid.Column = "6" FontAttributes="Bold"
+							       HorizontalOptions="End"
+							       VerticalOptions="Start"
+							       VerticalTextAlignment="Start">
+								<Label.FormattedText>
+									<FormattedString>
+										<Span Text="Purchases Price - $" />
+										<Span Text="{Binding VisiblePurchaseItemsPrice}" />
+									</FormattedString>
+								</Label.FormattedText>
+							</Label>
+						</Grid>
+					</Grid>
+					<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" RowDefinitions="Auto,*">
+						<Label Grid.Row="0" Grid.Column="0" Text="Item #" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="1" Text="Product Description" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="2" Text="Bill Type" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="3" Text="Book Price" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="4" Text="Discount" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="5" Text="Unit Price" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="6" Text="Qty" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="7" Text="Net Price" HorizontalTextAlignment="Center"/>
+						<CollectionView Grid.Row="1" Grid.ColumnSpan="9" 
+						                x:Name="PurchaseItemsCollectionView"
+						                ItemsSource="{Binding VisiblePurchaseItems}"
+						                SelectedItem="{Binding SelectedPurchaseItem, Mode=TwoWay}">
+							<CollectionView.ItemTemplate>
+								<DataTemplate x:DataType="models:QuoteItem">
+									<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" Padding="5">
+										<Label Grid.Column="0" Text="{Binding Index}" HorizontalTextAlignment="Center" />
+										<Label Grid.Column="1" Text="{Binding Description}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="2" Text="{Binding BillType}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="3" Text="{Binding BookPrice, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="4" Text="{Binding Discount}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="5" Text="{Binding UnitPrice, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="6" Text="{Binding Qty}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="7" Text="{Binding NetPrice, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Button Grid.Column="8" Text="Delete" Clicked="DeletePurchaseItemClicked" CommandParameter="{Binding .}" />
+									</Grid>
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+					</Grid>
+				</StackLayout>
+			</Frame>
+			<Frame>
+				<StackLayout>
+					<Grid RowDefinitions="Auto,*">
+						<Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto, *">
+							<Button Grid.Column="1" Margin="2" Padding="2" Text="Add" Command="{Binding AddRentalItemsCommand}"/>
+							<Button Grid.Column="2" Margin="2" Padding="2" Text="Edit"/>
+							<Button Grid.Column="3" Margin="2" Padding="2" Text="Move Up"/>
+							<Button Grid.Column="4" Margin="2" Padding="2" Text="Move Down"/>
+							<Button Grid.Column="5" Margin="2" Padding="2" Text="Clear"/>
+							<Label Grid.Column = "6" FontAttributes="Bold"
+							       HorizontalOptions="End"
+							       VerticalOptions="Start"
+							       VerticalTextAlignment="Start">
+								<Label.FormattedText>
+									<FormattedString>
+										<Span Text="Rentals Price - $" />
+										<Span Text="{Binding VisibleRentalItemsPrice, StringFormat='{0:F2}'}" />
+									</FormattedString>
+								</Label.FormattedText>
+							</Label>
+						</Grid>
+					</Grid>
+					<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" RowDefinitions="Auto,*">
+						<Label Grid.Row="0" Grid.Column="0" Text="Item #" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="1" Text="Product Description" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="2" Text="Bill Type" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="3" Text="Book Price" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="4" Text="Discount" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="5" Text="Unit Price" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="6" Text="Qty" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="7" Text="Net Price" HorizontalTextAlignment="Center"/>
+						<CollectionView Grid.Row="1" Grid.ColumnSpan="9" 
+						                x:Name="RentalItemsCollectionView"
+						                ItemsSource="{Binding VisibleRentalItems}"
+						                SelectedItem="{Binding SelectedRentalItem, Mode=TwoWay}">
+							<CollectionView.ItemTemplate>
+								<DataTemplate x:DataType="models:QuoteItem">
+									<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" Padding="5">
+										<Label Grid.Column="0" Text="{Binding Index}" HorizontalTextAlignment="Center" />
+										<Label Grid.Column="1" Text="{Binding Description}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="2" Text="{Binding BillType}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="3" Text="{Binding BookPrice, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="4" Text="{Binding Discount}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="5" Text="{Binding UnitPrice, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="6" Text="{Binding Qty}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="7" Text="{Binding NetPrice, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Button Grid.Column="8" Text="Delete" Clicked="DeleteRentalItemClicked" CommandParameter="{Binding .}" />
+									</Grid>
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+					</Grid>
+				</StackLayout>
+			</Frame>
+			<Frame>
+				<StackLayout>
+					<Grid RowDefinitions="Auto,*">
+						<Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto, *">
+							<Button Grid.Column="1" Margin="2" Padding="2" Text="Add" Command="{Binding AddThreadPriceCommand}"/>
+							<Button Grid.Column="2" Margin="2" Padding="2" Text="Edit"/>
+							<Button Grid.Column="3" Margin="2" Padding="2" Text="Move Up"/>
+							<Button Grid.Column="4" Margin="2" Padding="2" Text="Move Down"/>
+							<Button Grid.Column="5" Margin="2" Padding="2" Text="Clear"/>
+							<Label Grid.Column = "6" FontAttributes="Bold"
+							       HorizontalOptions="End"
+							       VerticalOptions="Start"
+							       VerticalTextAlignment="Start">
+								<Label.FormattedText>
+									<FormattedString>
+										<Span Text="Threads Price - $" />
+										<Span Text="{Binding VisibleThreadPricePrice, StringFormat='{0:F2}'}" />
+									</FormattedString>
+								</Label.FormattedText>
+							</Label>
+						</Grid>
+					</Grid>
+					<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" RowDefinitions="Auto,*">
+						<Label Grid.Row="0" Grid.Column="0" Text="Item #" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="1" Text="Product Description" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="2" Text="Bill Type" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="3" Text="Book Price" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="4" Text="Discount" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="5" Text="Unit Price" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="6" Text="Qty" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="7" Text="Net Price" HorizontalTextAlignment="Center"/>
+						<CollectionView Grid.Row="1" Grid.ColumnSpan="9" 
+						                x:Name="ThreadPricesCollectionView"
+						                ItemsSource="{Binding VisibleThreadPrices}"
+						                SelectedItem="{Binding SelectedThreadPrice, Mode=TwoWay}">
+							<CollectionView.ItemTemplate>
+								<DataTemplate x:DataType="models:ThreadPrice">
+									<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" Padding="5">
+										<Label Grid.Column="0" Text="{Binding Range}" HorizontalTextAlignment="Center" />
+										<Label Grid.Column="1" Text="{Binding BoxCost, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="2" Text="{Binding BoxMarkUp, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="3" Text="{Binding PinCost, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="4" Text="{Binding PinMarkUp, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="5" Text="{Binding TotalMarkUp, StringFormat='{0:F2}', StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="6" Text="{Binding Quantity}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="7" Text="{Binding TotalSalePrice, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Button Grid.Column="8" Text="Delete" Clicked="DeleteThreadPriceClicked" CommandParameter="{Binding .}" />
+									</Grid>
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+					</Grid>
+				</StackLayout>
+			</Frame>
+			<Frame>
+				<StackLayout>
+					<Grid RowDefinitions="Auto,*">
+						<Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto, *">
+							<Button Grid.Column="1" Margin="2" Padding="2" Text="Add" Command="{Binding AddBallPriceCommand}"/>
+							<Button Grid.Column="2" Margin="2" Padding="2" Text="Edit"/>
+							<Button Grid.Column="3" Margin="2" Padding="2" Text="Move Up"/>
+							<Button Grid.Column="4" Margin="2" Padding="2" Text="Move Down"/>
+							<Button Grid.Column="5" Margin="2" Padding="2" Text="Clear"/>
+							<Label Grid.Column = "6" FontAttributes="Bold"
+							       HorizontalOptions="End"
+							       VerticalOptions="Start"
+							       VerticalTextAlignment="Start">
+								<Label.FormattedText>
+									<FormattedString>
+										<Span Text="Balls Price - $" />
+										<Span Text="{Binding VisibleBallPricePrice, StringFormat='{0:F2}'}" />
+									</FormattedString>
+								</Label.FormattedText>
+							</Label>
+						</Grid>
+					</Grid>
+					<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*,*,*" RowDefinitions="Auto,*">
+						<Label Grid.Row="0" Grid.Column="0" Text="Stage #" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="1" Text="Ball Description" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="2" Text="Seat ID" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="3" Text="Seat OD" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="4" Text="Ball OD" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="5" Text="ΔP Rating(psi)" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="6" Text="ΔP Rating(kPa)" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="7" Text="Unit Price" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="8" Text="Quantity" HorizontalTextAlignment="Center"/>
+						<Label Grid.Row="0" Grid.Column="9" Text="Net Price" HorizontalTextAlignment="Center"/>
+						<CollectionView Grid.Row="1" Grid.ColumnSpan="11" 
+						                x:Name="BallPricesCollectionView"
+						                ItemsSource="{Binding VisibleBallPrices}"
+						                SelectedItem="{Binding SelectedBallPrice, Mode=TwoWay}">
+							<CollectionView.ItemTemplate>
+								<DataTemplate x:DataType="models:BallPrice">
+									<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*,*,*" Padding="5">
+										<Label Grid.Column="0" Text="{Binding Index}" HorizontalTextAlignment="Center" />
+										<Label Grid.Column="1" Text="{Binding CasingType, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="2" Text="{Binding SeatIDInches, StringFormat='{0:F3}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="3" Text="{Binding SeatIDMM, StringFormat='{0:F3}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="4" Text="{Binding BallODMM, StringFormat='{0:F3}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="5" Text="{Binding DissolveablePressureRating, StringFormat='{0:F0}', StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="6" Text="{Binding DissolvablePressureRatingKPA, StringFormat='{0:F0}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="7" Text="{Binding UnitPrice, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="8" Text="{Binding Quantity, StringFormat='{0:F0}'}" HorizontalTextAlignment="Center"/>
+										<Label Grid.Column="9" Text="{Binding SalePrice, StringFormat='{0:F2}'}" HorizontalTextAlignment="Center"/>
+										<Button Grid.Column="10" Text="Delete" Clicked="DeleteBallPriceClicked" CommandParameter="{Binding .}" />
+									</Grid>
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+					</Grid>
+				</StackLayout>
+			</Frame>
+			<Frame>
+				<Grid ColumnDefinitions="*,*,*">
+					<customControl:MyTextInput Grid.Column="0" LabelText="Completed By" EntryText="{Binding CompletedBy}"/>
+					<customControl:MyTextInput Grid.Column="1" LabelText="Approved By" EntryText="{Binding ApprovedBy}"/>
+					<customControl:MyTextInput Grid.Column="2" LabelText="Reviewed By" EntryText="{Binding ReviewedBy}"/>
+				</Grid>
+			</Frame>
+		</StackLayout>
+	</ScrollView>
+</ContentPage>

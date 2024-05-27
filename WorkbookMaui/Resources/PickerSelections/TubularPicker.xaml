@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+	<x:Array x:Key="SourceListOptionsTubular" Type="{x:Type x:String}">
+		<x:String>Surface</x:String>
+		<x:String>Intermediate</x:String>
+		<x:String>CasingA</x:String>
+		<x:String>CasingB</x:String>
+		<x:String>CasingC</x:String>
+		<x:String>CasingD</x:String>
+		<x:String>Drill Pipe</x:String>
+		<x:String>HeviWate</x:String>
+		<x:String>Drill Collars</x:String>
+		<x:String>MSF Components</x:String>
+		<x:String>Open Hole</x:String>
+	</x:Array>
+</ResourceDictionary>

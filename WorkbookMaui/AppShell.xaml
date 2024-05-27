@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="WorkbookMaui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:WorkbookMaui.Views"
+    Shell.FlyoutBehavior="Disabled">
+
+	<TabBar>
+		<Tab Title="Quote">
+			<ShellContent
+				Title="Quote"
+				ContentTemplate="{DataTemplate local:WorkbookQuotePage}"
+				Route="MainPage" />
+		</Tab>
+		<Tab Title="Input">
+			<ShellContent
+				Title="Input"
+				ContentTemplate="{DataTemplate local:WorkbookInputPage}"
+				Route="MainPage" />
+		</Tab>
+		<Tab Title="Equipment">
+			<ShellContent
+				Title="Equipment"
+				ContentTemplate="{DataTemplate local:WorkbookMainPage}"
+				Route="MainPage" />
+		</Tab>
+		<Tab Title="Shipping">
+			<ShellContent
+				Title="Shipping"
+				ContentTemplate="{DataTemplate local:WorkbookShippingPage}"
+				Route="MainPage" />
+		</Tab>
+		<Tab Title="Log">
+			<ShellContent
+				Title="Log"
+				ContentTemplate="{DataTemplate local:WorkbookLogPage}"
+				Route="MainPage" />
+		</Tab>
+		<Tab Title="80/90">
+			<ShellContent
+				Title="80/90"
+				ContentTemplate="{DataTemplate local:WorkbookEightyNinetyPage}"
+				Route="MainPage" />
+		</Tab>
+		<Tab Title="OHBD Frac Table">
+			<ShellContent
+				Title="OHBD Frac Table"
+				ContentTemplate="{DataTemplate local:WorkbokOHBDFracTable}"
+				Route="MainPage" />
+		</Tab>
+		<Tab Title="PnP Frac Table">
+			<ShellContent
+				Title="PnP Frac Table"
+				ContentTemplate="{DataTemplate local:WorkbokPnPFracTable}"
+				Route="MainPage" />
+		</Tab>
+	</TabBar>
+</Shell>

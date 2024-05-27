@@ -16,34 +16,36 @@ public class WorkbookQuoteViewModel : BaseViewModel
 	public ICommand AddRentalItemsCommand { get; private set; }
 	public ICommand AddThreadPriceCommand { get; private set; }
 	public ICommand AddBallPriceCommand { get; private set; }
-
-	private IList<string> _quoteStatusTypes = new List<string>
-	{
-		"Master",
-		"Install",
-		"Frac"
-	};
+	public ICommand SaveCommand { get; private set; }
 	
 	public IList<string> QuoteStatusTypes
 	{
-		get => _quoteStatusTypes;
-		set => SetProperty(ref _quoteStatusTypes, value);
+		get => _dataService.ApplicationData.QuoteStatusTypes;
+		set => SetProperty(_dataService.ApplicationData.QuoteStatusTypes,value,() => _dataService.ApplicationData.QuoteStatusTypes = value);
 	}
-
-	private string _quoteStatus = "Master";
+	
+	public IList<string> QuoteCurrencies
+	{
+		get => _dataService.ApplicationData.QuoteCurrencies;
+		set => SetProperty(_dataService.ApplicationData.QuoteCurrencies,value,() => _dataService.ApplicationData.QuoteCurrencies = value);
+	}
 
 	public string QuoteStatus
 	{
-		get => _quoteStatus;
-		set => SetProperty(ref _quoteStatus, value);
+		get => _dataService.ApplicationData.QuoteStatus;
+		set => SetProperty(_dataService.ApplicationData.QuoteStatus,value,() => _dataService.ApplicationData.QuoteStatus = value);
 	}
 
-	private ObservableCollection<Tubular> _tubularInfo = new ();
+	public string QuoteCurrency
+	{
+		get => _dataService.ApplicationData.QuoteCurrency;
+		set => SetProperty(_dataService.ApplicationData.QuoteCurrency,value,() => _dataService.ApplicationData.QuoteCurrency = value);
+	}
 
 	public ObservableCollection<Tubular> TubularInfo
 	{
-		get => _tubularInfo;
-		set => SetProperty(ref _tubularInfo, value);
+		get => _dataService.ApplicationData.TubularInfo;
+		set => SetProperty(_dataService.ApplicationData.TubularInfo,value,() => _dataService.ApplicationData.TubularInfo = value);
 	}
 	
 	private Tubular _selectedTubular;
@@ -107,87 +109,60 @@ public class WorkbookQuoteViewModel : BaseViewModel
 		set => SetProperty(ref _visibleThreadPricePrice, value);
 	}
 	private double _visibleBallPricePrice;
-
 	public double VisibleBallPricePrice
 	{
 		get => _visibleBallPricePrice;
 		set => SetProperty(ref _visibleBallPricePrice, value);
 	}
-	
-	private ObservableCollection<QuoteItem> _visiblePurchaseItems = new ObservableCollection<QuoteItem>();
-
 	public ObservableCollection<QuoteItem> VisiblePurchaseItems
 	{
-		get => _visiblePurchaseItems;
-		set => SetProperty(ref _visiblePurchaseItems, value);
+		get => _dataService.ApplicationData.VisiblePurchaseItems;
+		set => SetProperty(_dataService.ApplicationData.VisiblePurchaseItems,value,() => _dataService.ApplicationData.VisiblePurchaseItems = value);
 	}
-	private ObservableCollection<QuoteItem> _visibleRentalItems = new ObservableCollection<QuoteItem>();
-
 	public ObservableCollection<QuoteItem> VisibleRentalItems
 	{
-		get => _visibleRentalItems;
-		set => SetProperty(ref _visibleRentalItems, value);
+		get => _dataService.ApplicationData.visibleRentalItems;
+		set => SetProperty(_dataService.ApplicationData.visibleRentalItems,value,() => _dataService.ApplicationData.visibleRentalItems = value);
 	}
-	
-	private ObservableCollection<ThreadPrice> _visibleThreadPrices = new ObservableCollection<ThreadPrice>();
 	public ObservableCollection<ThreadPrice> VisibleThreadPrices
 	{
-		get => _visibleThreadPrices;
-		set => SetProperty(ref _visibleThreadPrices, value);
+		get => _dataService.ApplicationData.VisibleThreadPrices;
+		set => SetProperty(_dataService.ApplicationData.VisibleThreadPrices,value,() => _dataService.ApplicationData.VisibleThreadPrices = value);
 	}
-
-	private ObservableCollection<BallPrice> _visibleBallPrices = new ObservableCollection<BallPrice>();
-
 	public ObservableCollection<BallPrice> VisibleBallPrices
 	{
-		get => _visibleBallPrices;
-		set => SetProperty(ref _visibleBallPrices, value);
+		get => _dataService.ApplicationData.VisibleBallPrices;
+		set => SetProperty(_dataService.ApplicationData.VisibleBallPrices,value,() => _dataService.ApplicationData.VisibleBallPrices = value);
 	}
-
-	private string _completedBy;
-
 	public string CompletedBy
 	{
-		get => _completedBy;
-		set => SetProperty(ref _completedBy, value);
+		get => _dataService.ApplicationData.CompletedBy;
+		set => SetProperty(_dataService.ApplicationData.CompletedBy,value,() => _dataService.ApplicationData.CompletedBy = value);
 	}
-	private string _approvedBy;
-
 	public string ApprovedBy
 	{
-		get => _approvedBy;
-		set => SetProperty(ref _approvedBy, value);
+		get => _dataService.ApplicationData.ApprovedBy;
+		set => SetProperty(_dataService.ApplicationData.ApprovedBy,value,() => _dataService.ApplicationData.ApprovedBy = value);
 	}
-	private string _reviewedBy;
-
 	public string ReviewedBy
 	{
-		get => _reviewedBy;
-		set => SetProperty(ref _reviewedBy, value);
+		get => _dataService.ApplicationData.ReviewedBy;
+		set => SetProperty(_dataService.ApplicationData.ReviewedBy,value,() => _dataService.ApplicationData.ReviewedBy = value);
 	}
-
-	private DateTime _estimatedInstallDate;
-
 	public DateTime EstimatedInstallDate
 	{
-		get => _estimatedInstallDate;
-		set => this.SetProperty(ref _estimatedInstallDate, value);
+		get => _dataService.ApplicationData.EstimatedInstallDate;
+		set => SetProperty(_dataService.ApplicationData.EstimatedInstallDate,value,() => _dataService.ApplicationData.EstimatedInstallDate = value);
 	}
-
-	private DateTime _estimatedFracDate;
-
 	public DateTime EstimatedFracDate
 	{
-		get => _estimatedFracDate;
-		set => this.SetProperty(ref _estimatedFracDate, value);
+		get => _dataService.ApplicationData.EstimatedFracDate;
+		set => SetProperty(_dataService.ApplicationData.EstimatedFracDate,value,() => _dataService.ApplicationData.EstimatedFracDate = value);
 	}
-
-	private DateTime _quoteDate;
-
 	public DateTime QuoteDate
 	{
-		get => _quoteDate;
-		set => this.SetProperty(ref _quoteDate, value);
+		get => _dataService.ApplicationData.QuoteDate;
+		set => SetProperty(_dataService.ApplicationData.QuoteDate,value,() => _dataService.ApplicationData.QuoteDate = value);
 	}
 	
 	public WorkbookQuoteViewModel(DataService dataService, INavigationService navigationService)
@@ -200,6 +175,7 @@ public class WorkbookQuoteViewModel : BaseViewModel
 		AddRentalItemsCommand = new Command(AddRentalItem);
 		AddThreadPriceCommand = new Command(AddThreadPrice);
 		AddBallPriceCommand = new Command(AddBallPrice);
+		SaveCommand = new Command(async () => await SaveData());
 	}
 
 	private void AddTubular()
@@ -328,6 +304,11 @@ public class WorkbookQuoteViewModel : BaseViewModel
 	{
 		if (item == null) return;
 		VisibleBallPrices.Remove(item);
+	}
+	private async Task SaveData()
+	{
+		string filePath = Path.Combine(FileSystem.AppDataDirectory, "appdata.json");
+		await _dataService.SaveDataAsync(filePath);
 	}
 
 	private void UpdateTubularsSourceCollections()

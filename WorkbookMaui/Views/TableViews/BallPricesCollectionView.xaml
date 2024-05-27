@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkbookMaui.Views.TableViews.BallPricesCollectionView"
+             xmlns:models="clr-namespace:WorkbookMaui.Models"
+             xmlns:viewModel="clr-namespace:WorkbookMaui.ViewModels"
+             x:DataType="viewModel:WorkbookQuoteViewModel">
+    <StackLayout>
+        <Grid RowDefinitions="Auto,*">
+            <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto, *">
+                <Button Grid.Column="1" Margin="2" Padding="2" Text="Add" Command="{Binding AddBallPriceCommand}" />
+                <Button Grid.Column="2" Margin="2" Padding="2" Text="Edit" />
+                <Button Grid.Column="3" Margin="2" Padding="2" Text="Move Up" />
+                <Button Grid.Column="4" Margin="2" Padding="2" Text="Move Down" />
+                <Button Grid.Column="5" Margin="2" Padding="2" Text="Clear" />
+                <Label Grid.Column="6"
+                       FontAttributes="Bold"
+                       HorizontalOptions="End"
+                       VerticalOptions="Start"
+                       VerticalTextAlignment="Start">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Balls Price - $" />
+                            <Span Text="{Binding VisibleBallPricePrice, StringFormat='{0:F2}'}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+        </Grid>
+        <Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*,*,*" RowDefinitions="Auto,*">
+            <Label Grid.Row="0" Grid.Column="0" Text="Stage #" HorizontalTextAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="1" Text="Ball Description" HorizontalTextAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="2" Text="Seat ID" HorizontalTextAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="3" Text="Seat OD" HorizontalTextAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="4" Text="Ball OD" HorizontalTextAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="5" Text="ΔP Rating(psi)" HorizontalTextAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="6" Text="ΔP Rating(kPa)" HorizontalTextAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="7" Text="Unit Price" HorizontalTextAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="8" Text="Quantity" HorizontalTextAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="9" Text="Net Price" HorizontalTextAlignment="Center" />
+            <CollectionView Grid.Row="1" Grid.ColumnSpan="11"
+                            ItemsSource="{Binding VisibleBallPrices}"
+                            SelectedItem="{Binding SelectedBallPrice, Mode=TwoWay}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:BallPrice">
+                        <Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*,*,*" Padding="5">
+                            <Label Grid.Column="0" Text="{Binding Index}" HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="1" Text="{Binding CasingType, StringFormat='{0:F2}'}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="2" Text="{Binding SeatIDInches, StringFormat='{0:F3}'}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="3" Text="{Binding SeatIDMM, StringFormat='{0:F3}'}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="4" Text="{Binding BallODMM, StringFormat='{0:F3}'}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="5"
+                                   Text="{Binding DissolveablePressureRating, StringFormat='{0:F0}', StringFormat='{0:F2}'}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="6" Text="{Binding DissolvablePressureRatingKPA, StringFormat='{0:F0}'}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="7" Text="{Binding UnitPrice, StringFormat='{0:F2}'}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="8" Text="{Binding Quantity, StringFormat='{0:F0}'}"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="9" Text="{Binding SalePrice, StringFormat='{0:F2}'}"
+                                   HorizontalTextAlignment="Center" />
+                            <Button Grid.Column="10" Text="Delete" Clicked="DeleteBallPriceClicked"
+                                    CommandParameter="{Binding .}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </StackLayout>
+</ContentView>

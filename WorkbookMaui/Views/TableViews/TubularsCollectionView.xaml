@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkbookMaui.Views.TableViews.TubularsCollectionView"
+             xmlns:models="clr-namespace:WorkbookMaui.Models"
+             xmlns:viewModel="clr-namespace:WorkbookMaui.ViewModels"
+             x:DataType="viewModel:WorkbookQuoteViewModel">
+    <ContentView.Content>
+	    <Grid RowDefinitions="Auto,*" >
+		    <Grid Grid.Row="0" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto, *">
+			    <Button Grid.Column="1" Margin="2" Padding="2" Text="Add" Command="{Binding AddTubularCommand}"/>
+			    <Button Grid.Column="2" Margin="2" Padding="2" Text="Edit"/>
+			    <Button Grid.Column="3" Margin="2" Padding="2" Text="Move Up"/>
+			    <Button Grid.Column="4" Margin="2" Padding="2" Text="Move Down"/>
+			    <Button Grid.Column="5" Margin="2" Padding="2" Text="Clear"/>
+			    <Label Grid.Column="6" Text="Tubular and Open Hole Information"
+			           FontAttributes="Bold"
+			           HorizontalOptions="End" 
+			           VerticalOptions="Start"
+			           VerticalTextAlignment="Start"/>
+		    </Grid>
+		    <Grid Grid.Row="1" ColumnDefinitions="*,*,*,*,*,*,*,*,*" RowDefinitions="Auto,*">
+			<Label Grid.Row="0" Grid.Column="0" Text="OD" HorizontalTextAlignment="Center"/>
+			<Label Grid.Row="0" Grid.Column="1" Text="ID" HorizontalTextAlignment="Center"/>
+			<Label Grid.Row="0" Grid.Column="2" Text="Weight" HorizontalTextAlignment="Center"/>
+			<Label Grid.Row="0" Grid.Column="3" Text="Grade" HorizontalTextAlignment="Center"/>
+			<Label Grid.Row="0" Grid.Column="4" Text="Connection" HorizontalTextAlignment="Center"/>
+			<Label Grid.Row="0" Grid.Column="5" Text="Top Depth" HorizontalTextAlignment="Center"/>
+			<Label Grid.Row="0" Grid.Column="6" Text="Bottom Depth" HorizontalTextAlignment="Center"/>
+			<Label Grid.Row="0" Grid.Column="7" Text="Source List" HorizontalTextAlignment="Center"/>
+			<CollectionView Grid.Row="1" Grid.ColumnSpan="9" 
+			                x:Name="TubularCollectionView"
+			                ItemsSource="{Binding TubularInfo}"
+			                SelectedItem="{Binding SelectedTubular, Mode=TwoWay}">
+				<CollectionView.ItemTemplate>
+					<DataTemplate x:DataType="models:Tubular">
+						<Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*" Padding="5">
+							<Entry Grid.Column="0" Text="{Binding OuterDiameter, Mode=TwoWay, Converter={StaticResource DoubleToTextConverter}}" Placeholder="SizeOD" HorizontalTextAlignment="Center" />
+							<Entry Grid.Column="1" Text="{Binding InnerDiameter, Mode=TwoWay, Converter={StaticResource DoubleToTextConverter}}" Placeholder="SizeID" HorizontalTextAlignment="Center"/>
+							<Entry Grid.Column="2" Text="{Binding Weight, Mode=TwoWay, Converter={StaticResource DoubleToTextConverter}}" Placeholder="Weight" HorizontalTextAlignment="Center"/>
+							<Entry Grid.Column="3" Text="{Binding Grade, Mode=TwoWay}" Placeholder="Grade" HorizontalTextAlignment="Center"/>
+							<Entry Grid.Column="4" Text="{Binding Connection, Mode=TwoWay}" Placeholder="Connection" HorizontalTextAlignment="Center"/>
+							<Entry Grid.Column="5" Text="{Binding TopDepth, Mode=TwoWay, Converter={StaticResource DoubleToTextConverter}}" Placeholder="TopDepth" HorizontalTextAlignment="Center"/>
+							<Entry Grid.Column="6" Text="{Binding BottomDepth, Mode=TwoWay, Converter={StaticResource DoubleToTextConverter}}" Placeholder="BottomDepth" HorizontalTextAlignment="Center"/>
+							<Picker Grid.Column="7" SelectedItem="{Binding SourceList, Mode=TwoWay}" ItemsSource="{DynamicResource SourceListOptionsTubular}" HorizontalTextAlignment="Center" />
+							<Button Grid.Column="8" Text="Delete" Clicked="DeleteButtonClicked" CommandParameter="{Binding .}" />
+						</Grid>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+			</Grid>
+	    </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -12,27 +12,7 @@ namespace WorkbookMaui.ViewModels
 
 		public ICommand NavigateCommand { get; private set; }
 		public ICommand SaveDataCommand { get; private set; }
-
-		public string SharedData
-		{
-			get => dataService.ApplicationData.SharedData;
-			set
-			{
-				dataService.ApplicationData.SharedData = value;
-				OnPropertyChanged();
-			}
-		}
-
-		public string WorkBookMainPageData
-		{
-			get => dataService.ApplicationData.WorkBookMainPageData;
-			set
-			{
-				dataService.ApplicationData.WorkBookMainPageData = value;
-				OnPropertyChanged();
-			}
-		}
-
+		
 		public WorkbookMainPageViewModel(DataService dataService, INavigationService navigationService)
 		{
 			this.dataService = dataService;

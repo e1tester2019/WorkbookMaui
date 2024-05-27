@@ -21,4 +21,13 @@ public class BaseViewModel : INotifyPropertyChanged
 		OnPropertyChanged(propertyName);
 		return true;
 	}
+	protected bool SetProperty<T>(T currentValue, T newValue, Action doSet, [CallerMemberName] string propertyName = null)
+	{
+		if (EqualityComparer<T>.Default.Equals(currentValue, newValue))
+			return false;
+
+		doSet.Invoke();
+		OnPropertyChanged(propertyName);
+		return true;
+	}
 }

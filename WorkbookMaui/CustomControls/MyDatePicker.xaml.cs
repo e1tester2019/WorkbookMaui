@@ -5,11 +5,17 @@ namespace WorkbookMaui.CustomControls
 {
 	public partial class MyDatePicker : ContentView
 	{
+		public static readonly BindableProperty LabelTextProperty =
+			BindableProperty.Create(nameof(LabelText), typeof(string), typeof(MyDatePicker), 
+				default(string), propertyChanged: (bindable, oldValue, newValue) =>
+				{
+					var control = (MyDatePicker)bindable;
+					control.LabelPart.Text = (string)newValue;
+				});
+		
 		public static readonly BindableProperty SelectedDateProperty =
 			BindableProperty.Create(nameof(SelectedDate), typeof(DateTime), typeof(MyDatePicker), DateTime.Today, BindingMode.TwoWay);
 
-		public static readonly BindableProperty LabelTextProperty =
-			BindableProperty.Create(nameof(LabelText), typeof(string), typeof(MyDatePicker), default(string));
 
 		public DateTime SelectedDate
 		{
